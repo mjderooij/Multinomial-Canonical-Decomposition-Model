@@ -64,40 +64,40 @@ rm(mydatlong, mydat2)
 
 ###############################################################################
 ###############################################################################
-# analysis with extended stereotype model
+# analysis with multinomial canonical decomposition
 ###############################################################################
 ###############################################################################
 
-source("~/surfdrive/LogitMDA/gsm/stereo.R")
+source("~/surfdrive/LogitMDA/gsm/mcd.R")
 
 # mutual independence model 
-esm.out1 = esm(X = XX[, 1:2], Y, S = 0, ord.z = 1, ord.m = 1, trace = FALSE, dcrit = 1e-9); summary(esm.out1)
+mcd.out1 = mcd(X = XX[, 1:2], Y, S = 0, ord.z = 1, ord.m = 1, trace = FALSE, dcrit = 1e-9); summary(mcd.out1)
 
 # the following model is comparable to the second glm: homogeneous association model
-esm.out2 = esm(X = XX[, 1:2], Y = Y, S = 2, ord.z = 1, ord.m = 2, trace = FALSE, dcrit = 1e-9); summary(esm.out2)
+mcd.out2 = mcd(X = XX[, 1:2], Y = Y, S = 2, ord.z = 1, ord.m = 2, trace = FALSE, dcrit = 1e-9); summary(mcd.out2)
 
 # the following model is comparable to the third glm - all three factor terms
-esm.out3 # not fittable with ESM 
+mcd.out3 # not fittable with mcd 
 
-esm.out4a = esm(X = X[, 1:2], Y = Y, S = 2, ord.z = 1, W = esm.out2$W[ , -4], trace = FALSE, dcrit = 1e-9); summary(esm.out4a)
-esm.out4b = esm(X = X[, 1:2], Y = Y, S = 2, ord.z = 1, W = esm.out2$W[ , -5], trace = FALSE, dcrit = 1e-9); summary(esm.out4b)
-esm.out4c = esm(X = X[, 1:2], Y = Y, S = 2, ord.z = 1, W = esm.out2$W[ , -6], trace = FALSE, dcrit = 1e-9); summary(esm.out4c)
+mcd.out4a = mcd(X = X[, 1:2], Y = Y, S = 2, ord.z = 1, W = mcd.out2$W[ , -4], trace = FALSE, dcrit = 1e-9); summary(mcd.out4a)
+mcd.out4b = mcd(X = X[, 1:2], Y = Y, S = 2, ord.z = 1, W = mcd.out2$W[ , -5], trace = FALSE, dcrit = 1e-9); summary(mcd.out4b)
+mcd.out4c = mcd(X = X[, 1:2], Y = Y, S = 2, ord.z = 1, W = mcd.out2$W[ , -6], trace = FALSE, dcrit = 1e-9); summary(mcd.out4c)
 
-esm.out4a$deviance - esm.out2$deviance # similar as anova(out2, out4a)
-esm.out4b$deviance - esm.out2$deviance # similar as anova(out2, out4b)
-esm.out4c$deviance - esm.out2$deviance # similar as anova(out2, out4c)
+mcd.out4a$deviance - mcd.out2$deviance # similar as anova(out2, out4a)
+mcd.out4b$deviance - mcd.out2$deviance # similar as anova(out2, out4b)
+mcd.out4c$deviance - mcd.out2$deviance # similar as anova(out2, out4c)
 
 
-esm.out4d # not fittable with ESM
-esm.out4e # not fittable with ESM
-esm.out4f # not fittable with ESM
-esm.out4g # not fittable with ESM
-esm.out4h # not fittable with ESM
-esm.out4i # not fittable with ESM
+mcd.out4d # not fittable with mcd
+mcd.out4e # not fittable with mcd
+mcd.out4f # not fittable with mcd
+mcd.out4g # not fittable with mcd
+mcd.out4h # not fittable with mcd
+mcd.out4i # not fittable with mcd
 
-esm.out5 = esm(X = XX[, 1:2], Y = Y, S = 2, Z = esm.out2$Z[ , -2, drop = FALSE], ord.m = 2, trace = FALSE, dcrit = 1e-9); summary(esm.out5)
-esm.out6# not fittable with ESM
-esm.out7 = esm(X = XX[, 1:2], Y = Y, S = 1, Z = esm.out2$Z[ , 1, drop = FALSE], ord.m = 2, trace = FALSE, dcrit = 1e-9); summary(esm.out7)
+mcd.out5 = mcd(X = XX[, 1:2], Y = Y, S = 2, Z = mcd.out2$Z[ , -2], ord.m = 2, trace = FALSE, dcrit = 1e-9); summary(mcd.out5)
+mcd.out6# not fittable with mcd
+mcd.out7 = mcd(X = XX[, 1:2], Y = Y, S = 1, Z = mcd.out2$Z[ , 1, drop = FALSE], ord.m = 2, trace = FALSE, dcrit = 1e-9); summary(mcd.out7)
 
 
 
